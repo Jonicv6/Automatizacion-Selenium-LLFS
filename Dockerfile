@@ -28,10 +28,11 @@ RUN apt-get update && apt-get install -y \
 
 # Descargar e instalar Google Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome-stable_current_amd64.deb || apt-get -fy install
-
+    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
+    && rm google-chrome-stable_current_amd64.deb
+    
 # Descargar e instalar ChromeDriver
-RUN CHROME_DRIVER_VERSION=129.0.6668.58 \
+RUN CHROME_DRIVER_VERSION=114.0.5735.90 \
     && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 

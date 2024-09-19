@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     libvulkan1 \
     libxkbcommon0 \
-    curl \  # Agrega curl aquí
+    curl \ 
     --no-install-recommends
 
 # Descargar e instalar Google Chrome

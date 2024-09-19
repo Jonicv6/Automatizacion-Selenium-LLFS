@@ -1,2 +1,4 @@
 selenium
 chromedriver-autoinstaller
+pydrive
+zipfile36

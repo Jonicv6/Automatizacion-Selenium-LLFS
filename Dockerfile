@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-# Instalar dependencias de Chrome
+# Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -20,14 +20,27 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     fonts-liberation \
     xdg-utils \
+    libpangocairo-1.0-0 \
+    libvulkan1 \
+    libxkbcommon0 \
     --no-install-recommends
 
-# Descargar e instalar Chrome
+# Descargar e instalar Google Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome-stable_current_amd64.deb \
-    && apt-get -fy install
+    && dpkg -i google-chrome-stable_current_amd64.deb || apt-get -fy install
 
-# Descargar ChromeDriver
+# Descargar e instalar ChromeDriver
 RUN CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE) \
     && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+
+# Instalar dependencias de Python
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copiar tu código al contenedor
+COPY . /app
+
+WORKDIR /app
+
+CMD ["python", "selenium.py"]

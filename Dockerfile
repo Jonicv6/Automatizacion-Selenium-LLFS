@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     libvulkan1 \
     libxkbcommon0 \
+    curl \  # Agrega curl aquí
     --no-install-recommends
 
 # Descargar e instalar Google Chrome
@@ -43,4 +44,5 @@ COPY . /app
 
 WORKDIR /app
 
+# Comando para ejecutar tu script
 CMD ["python", "selenium.py"]

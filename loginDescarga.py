@@ -11,7 +11,7 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 
 # Especifica la ruta a tu chromedriver
-driver = webdriver.Chrome(executable_path='/ruta/a/chromedriver', options=chrome_options)
+driver = webdriver.Chrome(options=chrome_options)
 
 # Navega a la web que deseas automatizar
 driver.get('https://www.llfspuertoreal.es/es/admin/users/database/full.com')

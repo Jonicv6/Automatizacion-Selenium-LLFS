@@ -45,4 +45,4 @@ COPY . /app
 WORKDIR /app
 
 # Comando para ejecutar tu script
-CMD ["python", "selenium.py"]
+CMD ["python", "loginDescarga.py"]

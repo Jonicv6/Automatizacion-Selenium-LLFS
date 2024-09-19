@@ -1,4 +1,4 @@
-from selenium import webdriver
+from loginDescarga import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +14,7 @@ chrome_options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path='/ruta/a/chromedriver', options=chrome_options)
 
 # Navega a la web que deseas automatizar
-driver.get('https://tuweb.com')
+driver.get('https://www.llfspuertoreal.es/es/admin/users/database/full.com')
 
 # Espera hasta que aparezca el elemento que necesitas (por ejemplo, un botón)
 try:
@@ -22,12 +22,18 @@ try:
     wait = WebDriverWait(driver, 10)
     modal = wait.until(EC.visibility_of_element_located((By.ID, "id-del-modal")))
 
-    # Interactúa con el modal (ejemplo de selección de parámetros)
-    parametro1 = driver.find_element(By.ID, 'parametro1')
-    parametro1.click()  # Seleccionar un parámetro
+    # realiza el LOGIN
+    userInput = driver.find_element(By.ID, 'ion-input-0')
+    userInput.click()  # Seleccionar un parámetro
+    userInput.send_keys("adminInformatico")
+    
+    passInput = driver.find_element(By.ID, 'ion-input-0')
+    passInput.click()  # Seleccionar un parámetro
+    passInput.send_keys("J22/05/1995")
+    
 
     # Enviar formulario o hacer click en el botón que genera el correo
-    enviar_boton = driver.find_element(By.ID, 'enviar-button')
+    enviar_boton = driver.find_element(By.CLASS_NAME, '.clupik-button.main')
     enviar_boton.click()
 
     print("Interacción con la web completada, esperando el correo...")

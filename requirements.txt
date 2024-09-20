@@ -2,3 +2,4 @@ selenium
 chromedriver-autoinstaller
 pydrive
 zipfile36
+webdriver_manager

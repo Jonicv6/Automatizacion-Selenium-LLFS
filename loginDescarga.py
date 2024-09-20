@@ -1,17 +1,20 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-# Configuración de Chrome en modo 'headless' (sin interfaz gráfica)
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
+# Configurar las opciones de Chrome
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--headless')  # Opcional para ejecución sin interfaz gráfica
 
-# Especifica la ruta a tu chromedriver
-driver = webdriver.Chrome(options=chrome_options)
+# Selenium automáticamente descargará la versión correcta de ChromeDriver
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 # Navega a la web que deseas automatizar
 driver.get('https://www.llfspuertoreal.es/es/admin/users/database/full.com')

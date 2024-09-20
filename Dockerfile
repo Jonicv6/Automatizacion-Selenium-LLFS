@@ -26,19 +26,20 @@ RUN apt-get update && apt-get install -y \
     curl \ 
     --no-install-recommends
 
-# Descargar e instalar Google Chrome
+# Instalar dependencias
+RUN apt-get update && apt-get install -y wget unzip curl
+
+# Instalar Chrome versión 114
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt-get install -y ./google-chrome-stable_current_amd64.deb \
     && rm google-chrome-stable_current_amd64.deb
-    
-RUN apt-get update && apt-get install -y wget unzip curl
 
-# Obtener la versión más reciente de ChromeDriver
-RUN CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
+# Descargar e instalar ChromeDriver versión 114
+RUN CHROME_DRIVER_VERSION=114.0.5735.90 \
     && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ \
     && rm /tmp/chromedriver.zip
-    
+
 # Instalar dependencias de Python
 COPY requirements.txt .
 RUN pip install -r requirements.txt

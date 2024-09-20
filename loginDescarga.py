@@ -1,24 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-# Configurar las opciones de Chrome
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--no-sandbox')  # Importante para evitar problemas de permisos en entornos Docker
-chrome_options.add_argument('--disable-dev-shm-usage')  # Usa /tmp en lugar de /dev/shm
-chrome_options.add_argument('--headless')  # Ejecutar sin interfaz gráfica
-chrome_options.add_argument('--disable-gpu')  # Desactivar GPU, ya que no se necesita en contenedores
-chrome_options.add_argument('--disable-software-rasterizer')  # Evita problemas con la aceleración de gráficos
-chrome_options.add_argument('--disable-extensions')  # Desactivar las extensiones de Chrome
-chrome_options.add_argument('--remote-debugging-port=9222')  # Habilitar depuración remota
+from selenium.webdriver.firefox.options import Options
+from selenium import webdriver
 
-# Inicializar el controlador de Chrome
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+options = Options()
+options.headless = True
+
+driver = webdriver.Firefox(options=options)
 
 # Navega a la web que deseas automatizar
 driver.get('https://www.llfspuertoreal.es/es/admin/users/database/full.com')

@@ -31,11 +31,14 @@ RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
     && apt-get install -y ./google-chrome-stable_current_amd64.deb \
     && rm google-chrome-stable_current_amd64.deb
     
-# Descargar e instalar ChromeDriver
-RUN CHROME_DRIVER_VERSION=114.0.5735.90 \
-    && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
-    && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+RUN apt-get update && apt-get install -y wget unzip curl
 
+# Obtener la versión más reciente de ChromeDriver
+RUN CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
+    && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+    && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ \
+    && rm /tmp/chromedriver.zip
+    
 # Instalar dependencias de Python
 COPY requirements.txt .
 RUN pip install -r requirements.txt

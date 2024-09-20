@@ -1,5 +1,3 @@
-FROM python:3.9-slim
-
 # Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
     wget \
@@ -15,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxext6 \
     libxfixes3 \
-    libxi6 \
     libxrandr2 \
     libxtst6 \
     fonts-liberation \
@@ -23,16 +20,13 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     libvulkan1 \
     libxkbcommon0 \
-    curl \ 
+    curl \
     --no-install-recommends
 
-# Instalar dependencias
-RUN apt-get update && apt-get install -y wget unzip curl
-
-# Instalar Chrome versión 114
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
-    && rm google-chrome-stable_current_amd64.deb
+# Descargar e instalar Google Chrome versión 114
+RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb \
+    && apt-get install -y ./google-chrome-stable_114.0.5735.90-1_amd64.deb \
+    && rm google-chrome-stable_114.0.5735.90-1_amd64.deb
 
 # Descargar e instalar ChromeDriver versión 114
 RUN CHROME_DRIVER_VERSION=114.0.5735.90 \
